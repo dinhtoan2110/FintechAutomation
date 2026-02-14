@@ -9,16 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from .base_page import BasePage
 import time
 
-
 class LoginPagePOM(BasePage):
-    """
-    Page Object Model for Login Page
-    
-    Structure:
-    1️⃣ LOCATORS - Element locators
-    2️⃣ INITIALIZATION (__init__)
-    3️⃣ METHODS - Actions
-    """
     
     # ============================================
     # 1️⃣ LOCATORS (Element locators)
@@ -30,7 +21,8 @@ class LoginPagePOM(BasePage):
     ERROR_MESSAGE = (By.XPATH, "//div[@id='root']/div[1]")
     LOGIN_FORM = (By.XPATH, "//div[normalize-space(text())='Log in']")
     PAGE_TITLE_BEGIN = (By.XPATH, "//span[contains(.,'AQX Announcement: Welcome to AQX Trader!')]")
-    
+    POPUP_ERROR_TEXT_CREDENTIALS = (By.XPATH, "//div[contains(text(), 'Invalid credentials')]")
+
     # ============================================
     # 2️⃣ INITIALIZATION (__init__)
     # ============================================
@@ -48,6 +40,13 @@ class LoginPagePOM(BasePage):
         self.driver.get(self.url)
         self.wait.until(EC.visibility_of_element_located(self.LOGIN_FORM))
         print(f"[✓] Opened login page: {self.url}")
+        return self
+    
+    def goto_page(self, url="https://aqxtrader.aquariux.com/web/login"):
+        """Navigate to specific URL with login page path"""
+        self.driver.get(url)
+        self.wait.until(EC.visibility_of_element_located(self.LOGIN_FORM))
+        print(f"[✓] Navigated to: {url}")
         return self
     
     def enter_username(self, username):
@@ -69,30 +68,18 @@ class LoginPagePOM(BasePage):
         time.sleep(2)
         return self
     
-    def get_error_message(self):
-        """Get error message text if displayed"""
+    def get_error_message_with_popup(self, timeout=10):
+        """Get error message text from popup if displayed"""
         try:
-            error = self.wait.until(
-                EC.visibility_of_element_located(self.ERROR_MESSAGE),
-                timeout=5
+            error = WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(self.POPUP_ERROR_TEXT_CREDENTIALS)
             )
             error_text = error.text
-            print(f"[!] Error message: {error_text}")
+            print(f"[!] Popup error message: {error_text}")
             return error_text
-        except:
-            print("[!] No error message found")
+        except Exception as e:
+            print(f"[!] Popup error message not found: {str(e)}")
             return None
-    
-    def is_error_displayed(self):
-        """Check if error message is displayed"""
-        try:
-            self.wait.until(
-                EC.visibility_of_element_located(self.ERROR_MESSAGE),
-                timeout=5
-            )
-            return True
-        except:
-            return False
     
     def login(self, username, password):
         """Complete login process with username and password"""
@@ -114,17 +101,7 @@ class LoginPagePOM(BasePage):
             return False
     
     def wait_for_success(self, timeout=10):
-        """
-        Wait for login success by checking for PAGE_TITLE_BEGIN element
-        
-        Args:
-            timeout (int): Maximum wait time in seconds
-        
-        Returns:
-            bool: True if login successful, False if timeout/error
-        """
         try:
-            # Create WebDriverWait with specific timeout
             wait = WebDriverWait(self.driver, timeout)
             page_title = wait.until(
                 EC.visibility_of_element_located(self.PAGE_TITLE_BEGIN)

@@ -18,12 +18,6 @@ class BasePage:
         self.wait = WebDriverWait(driver, 10)
     
     def click(self, locator):
-        """
-        Wait for element to be clickable then click it
-        
-        Args:
-            locator: Tuple (By method, selector string)
-        """
         self.wait.until(EC.element_to_be_clickable(locator)).click()
     
     def type(self, locator, text):
