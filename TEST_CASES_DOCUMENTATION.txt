@@ -1,0 +1,1567 @@
+================================================================================
+AQX TRADER - AUTOMATED TEST SUITE - TEST CASES DOCUMENTATION
+================================================================================
+Generated: February 15, 2026
+Total Test Cases: 56
+Source: automated_tests.py
+================================================================================
+
+TEST CONFIGURATION:
+- Test Symbol: XAUUSD
+- Test Volume: 1.0 (standard)
+- Valid Username: 1001186
+- Valid Password: pJoD#m8HB6#o
+
+================================================================================
+CATEGORY 1: AUTHENTICATION TESTS (3 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: AUTH-001
+TITLE: Login with valid credentials
+PROCEDURE:
+  1. Open login page
+  2. Verify login page loaded successfully
+  3. Enter valid username (1001186)
+  4. Enter valid password
+  5. Click login button
+  6. Wait for redirect
+EXPECTED RESULT:
+  - Login successful
+  - Redirected to trading page (/web/trade)
+  - User authenticated and can access WebTrade page
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: AUTH-002
+TITLE: Login with invalid username
+PROCEDURE:
+  1. Open login page
+  2. Verify login page loaded successfully
+  3. Enter invalid username
+  4. Enter valid password
+  5. Click login button
+  6. Check for error message
+EXPECTED RESULT:
+  - Login fails
+  - Error message displayed
+  - User remains on login page
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: AUTH-003
+TITLE: Login with invalid password
+PROCEDURE:
+  1. Open login page
+  2. Verify login page loaded successfully
+  3. Enter valid username
+  4. Enter invalid password
+  5. Click login button
+  6. Check for error message
+EXPECTED RESULT:
+  - Login fails
+  - Error message displayed
+  - User remains on login page
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 2: MARKET ORDER - BUY (5 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: MO-BUY-001
+TITLE: Market Buy - Standard entry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Click Place Order
+  11. Open Positions tab
+  12. Read position data
+  13. Verify position created
+  14. Close position
+EXPECTED RESULT:
+  - Position created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order ID present
+  - Position visible in Positions tab
+  - Position can be closed
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-BUY-002
+TITLE: Market Buy - Submit & verify notification
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Click Place Order
+  11. Read notification information
+  12. Open Positions tab
+  13. Read position data
+  14. Bulk close all positions
+EXPECTED RESULT:
+  - Position created successfully
+  - Notification appears in notifications panel
+  - Position visible in Positions tab
+  - All positions can be closed in bulk
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-BUY-003
+TITLE: Market Buy - Edit open position
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Click Place Order
+  11. Open Positions tab
+  12. Click Edit on the position
+  13. Bulk close all positions
+EXPECTED RESULT:
+  - Position created successfully
+  - Position edit dialog opens
+  - Edit initiated successfully
+  - Positions can be closed after edit
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-BUY-004
+TITLE: Market Buy - Close position
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 0.5
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Click Place Order
+  11. Open Positions tab
+  12. Click Close on the position
+  13. Confirm close
+EXPECTED RESULT:
+  - Position created successfully
+  - Position can be closed individually
+  - Close initiated successfully
+  - Position removed from Positions tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-BUY-005
+TITLE: Market Buy - Bulk close positions
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first BUY position:
+     - Symbol: XAUUSD
+     - Type: Market
+     - Volume: 0.3
+     - Stop Loss: Last_price × 0.99
+     - Take Profit: Last_price × 1.03
+  4. Create second BUY position (same parameters)
+  5. Open Positions tab
+  6. Click Bulk Close All
+  7. Confirm bulk close
+EXPECTED RESULT:
+  - Both positions created successfully
+  - Both positions visible in Positions tab
+  - Bulk close initiated for all positions
+  - All positions removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 3: LIMIT ORDER - BUY (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-001
+TITLE: Limit Buy - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Expiry: Tomorrow's date
+  - Order ID present
+  - Order visible in Pending Orders tab
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-002
+TITLE: Limit Buy - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Expiry: Tomorrow at 12:00
+  - Order ID present
+  - Order visible in Pending Orders tab
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-003
+TITLE: Limit Buy - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Expiry: Good Till Day
+  - Order ID present
+  - Order visible in Pending Orders tab
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-004
+TITLE: Limit Buy - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Expiry: Good Till Cancelled
+  - Order ID present
+  - Order visible in Pending Orders tab
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-005
+TITLE: Limit Buy - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 0.98
+      - New Take Profit: Last_price × 1.04
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 1.04
+  - Volume, Stop Loss, Take Profit all updated
+  - Updated order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-006
+TITLE: Limit Buy - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+  - Deletion successful
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-BUY-007
+TITLE: Limit Buy - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Limit BUY order:
+     - Symbol: XAUUSD
+     - Type: Limit
+     - Volume: 0.5
+     - Stop Loss: Last_price × 0.99
+     - Take Profit: Last_price × 1.03
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Limit BUY order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated for all pending orders
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 4: STOP ORDER - BUY (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-001
+TITLE: Stop Buy - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop
+  - Expiry: Tomorrow's date
+  - Order ID present
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-002
+TITLE: Stop Buy - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop
+  - Expiry: Tomorrow at 12:00
+  - Order ID present
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-003
+TITLE: Stop Buy - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop
+  - Expiry: Good Till Day
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-004
+TITLE: Stop Buy - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop
+  - Expiry: Good Till Cancelled
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-005
+TITLE: Stop Buy - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 0.98
+      - New Take Profit: Last_price × 1.04
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 1.04
+  - All fields updated successfully
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-006
+TITLE: Stop Buy - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-BUY-007
+TITLE: Stop Buy - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Stop BUY order:
+     - Symbol: XAUUSD
+     - Type: Stop
+     - Volume: 0.5
+     - Stop Loss: Last_price × 0.99
+     - Take Profit: Last_price × 1.03
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Stop BUY order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated successfully
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 5: STOP LIMIT ORDER - BUY (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-001
+TITLE: Stop Limit Buy - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop Limit
+  - Expiry: Tomorrow's date
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-002
+TITLE: Stop Limit Buy - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop Limit
+  - Expiry: Tomorrow at 12:00
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-003
+TITLE: Stop Limit Buy - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop Limit
+  - Expiry: Good Till Day
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-004
+TITLE: Stop Limit Buy - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: BUY
+  - Order Type: Stop Limit
+  - Expiry: Good Till Cancelled
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-005
+TITLE: Stop Limit Buy - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 0.98
+      - New Take Profit: Last_price × 1.04
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 1.04
+  - All parameters updated successfully
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-006
+TITLE: Stop Limit Buy - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click BUY button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 0.99
+  9. Set Take Profit: Last_price × 1.03
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-BUY-007
+TITLE: Stop Limit Buy - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Stop Limit BUY order:
+     - Symbol: XAUUSD
+     - Type: Stop Limit
+     - Volume: 0.5
+     - Stop Loss: Last_price × 0.99
+     - Take Profit: Last_price × 1.03
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Stop Limit BUY order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated successfully
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 6: MARKET ORDER - SELL (5 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: MO-SELL-001
+TITLE: Market Sell - Standard entry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Click Place Order
+  11. Open Positions tab
+  12. Read position data
+  13. Verify position created
+  14. Close position
+EXPECTED RESULT:
+  - Position created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order ID present
+  - Position visible in Positions tab
+  - Position can be closed
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-SELL-002
+TITLE: Market Sell - Submit & verify notification
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Click Place Order
+  11. Read notification information
+  12. Open Positions tab
+  13. Read position data
+  14. Bulk close all positions
+EXPECTED RESULT:
+  - Position created successfully
+  - Notification appears in notifications panel
+  - Position visible in Positions tab
+  - All positions can be closed in bulk
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-SELL-003
+TITLE: Market Sell - Edit open position
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Click Place Order
+  11. Open Positions tab
+  12. Click Edit on the position
+  13. Bulk close all positions
+EXPECTED RESULT:
+  - Position created successfully
+  - Position edit dialog opens
+  - Edit initiated successfully
+  - Positions can be closed after edit
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-SELL-004
+TITLE: Market Sell - Close position
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Market
+  6. Input volume: 0.5
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Click Place Order
+  11. Open Positions tab
+  12. Click Close on the position
+  13. Confirm close
+EXPECTED RESULT:
+  - Position created successfully
+  - Position can be closed individually
+  - Close initiated successfully
+  - Position removed from Positions tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: MO-SELL-005
+TITLE: Market Sell - Bulk close positions
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first SELL position:
+     - Symbol: XAUUSD
+     - Type: Market
+     - Volume: 0.3
+     - Stop Loss: Last_price × 1.01
+     - Take Profit: Last_price × 0.97
+  4. Create second SELL position (same parameters)
+  5. Open Positions tab
+  6. Click Bulk Close All
+  7. Confirm bulk close
+EXPECTED RESULT:
+  - Both positions created successfully
+  - Both positions visible in Positions tab
+  - Bulk close initiated for all positions
+  - All positions removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 7: LIMIT ORDER - SELL (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-001
+TITLE: Limit Sell - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Expiry: Tomorrow's date
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-002
+TITLE: Limit Sell - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Expiry: Tomorrow at 12:00
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-003
+TITLE: Limit Sell - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Expiry: Good Till Day
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-004
+TITLE: Limit Sell - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Expiry: Good Till Cancelled
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-005
+TITLE: Limit Sell - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 1.02
+      - New Take Profit: Last_price × 0.96
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 0.96
+  - All fields updated successfully
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-006
+TITLE: Limit Sell - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: LO-SELL-007
+TITLE: Limit Sell - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Limit SELL order:
+     - Symbol: XAUUSD
+     - Type: Limit
+     - Volume: 0.5
+     - Stop Loss: Last_price × 1.01
+     - Take Profit: Last_price × 0.97
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Limit SELL order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated successfully
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 8: STOP ORDER - SELL (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-001
+TITLE: Stop Sell - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop
+  - Expiry: Tomorrow's date
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-002
+TITLE: Stop Sell - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop
+  - Expiry: Tomorrow at 12:00
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-003
+TITLE: Stop Sell - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop
+  - Expiry: Good Till Day
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-004
+TITLE: Stop Sell - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop
+  - Expiry: Good Till Cancelled
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-005
+TITLE: Stop Sell - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 1.02
+      - New Take Profit: Last_price × 0.96
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 0.96
+  - All parameters updated successfully
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-006
+TITLE: Stop Sell - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SO-SELL-007
+TITLE: Stop Sell - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Stop SELL order:
+     - Symbol: XAUUSD
+     - Type: Stop
+     - Volume: 0.5
+     - Stop Loss: Last_price × 1.01
+     - Take Profit: Last_price × 0.97
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Stop SELL order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated successfully
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 9: STOP LIMIT ORDER - SELL (7 tests)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-001
+TITLE: Stop Limit Sell - Specified Date expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date
+  11. Set expiry date: Tomorrow
+  12. Click Place Order
+  13. Open Pending Orders tab
+  14. Verify pending order created
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop Limit
+  - Expiry: Tomorrow's date
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-002
+TITLE: Stop Limit Sell - Specified Date and Time expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Specified Date and Time
+  11. Set expiry date: Tomorrow
+  12. Set expiry time: 12:00
+  13. Click Place Order
+  14. Open Pending Orders tab
+  15. Verify pending order created
+  16. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop Limit
+  - Expiry: Tomorrow at 12:00
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-003
+TITLE: Stop Limit Sell - Good Till Day expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop Limit
+  - Expiry: Good Till Day
+  - Order visible in Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-004
+TITLE: Stop Limit Sell - Good Till Cancelled expiry
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Cancelled
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Symbol: XAUUSD
+  - Type: SELL
+  - Order Type: Stop Limit
+  - Expiry: Good Till Cancelled
+  - Order can be cancelled
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-005
+TITLE: Stop Limit Sell - Edit pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Edit position with:
+      - New volume: 0.5
+      - New Stop Loss: Last_price × 1.02
+      - New Take Profit: Last_price × 0.96
+  14. Verify updated values
+  15. Close pending order
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be edited
+  - Take Profit updated to Last_price × 0.96
+  - All parameters updated successfully
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-006
+TITLE: Stop Limit Sell - Delete pending order (Good Till Day)
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Click SELL button
+  4. Input symbol: XAUUSD
+  5. Select order type: Stop Limit
+  6. Input volume: 1.0
+  7. Get current price
+  8. Set Stop Loss: Last_price × 1.01
+  9. Set Take Profit: Last_price × 0.97
+  10. Select order expiry: Good Till Day
+  11. Click Place Order
+  12. Open Pending Orders tab
+  13. Verify pending order created
+  14. Delete/close pending order
+  15. Confirm deletion
+EXPECTED RESULT:
+  - Pending order created successfully
+  - Order can be deleted
+  - Order removed from Pending Orders tab
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+TEST ID: SLO-SELL-007
+TITLE: Stop Limit Sell - Bulk close multiple
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Create first Stop Limit SELL order:
+     - Symbol: XAUUSD
+     - Type: Stop Limit
+     - Volume: 0.5
+     - Stop Loss: Last_price × 1.01
+     - Take Profit: Last_price × 0.97
+     - Expiry: Specified Date and Time (Tomorrow, 12:00)
+  4. Verify first order in Pending Orders tab
+  5. Create second Stop Limit SELL order (same parameters)
+  6. Verify second order in Pending Orders tab
+  7. Click Bulk Close All
+  8. Confirm bulk close
+EXPECTED RESULT:
+  - Both pending orders created successfully
+  - Both orders visible in Pending Orders tab
+  - Bulk close initiated successfully
+  - All orders removed from tab
+--------------------------------------------------------------------------------
+
+================================================================================
+CATEGORY 10: HISTORY TEST (1 test)
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST ID: HIS-001
+TITLE: Check Information & Order History
+PROCEDURE:
+  1. Login with valid credentials
+  2. Navigate to WebTrade page
+  3. Open Positions tab
+  4. Read position data from positions table
+  5. Verify position data available
+  6. Read notification information
+  7. Match position data with notifications
+  8. Verify position found in notifications
+EXPECTED RESULT:
+  - Position data is available and readable
+  - Position contains order_id, symbol, type, volume, profit
+  - Notifications are readable (or fallback passes if no notifications)
+  - Position can be matched with notification information
+  - Data integrity between positions and notifications confirmed
+--------------------------------------------------------------------------------
+
+================================================================================
+TEST CATEGORIES SUMMARY
+================================================================================
+
+1. Authentication Tests: 3 tests
+   - Valid/Invalid username and password scenarios
+   
+2. Market Order - BUY: 5 tests
+   - Standard entry, notifications, edit, close, bulk close
+   
+3. Limit Order - BUY: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+4. Stop Order - BUY: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+5. Stop Limit Order - BUY: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+6. Market Order - SELL: 5 tests
+   - Standard entry, notifications, edit, close, bulk close
+   
+7. Limit Order - SELL: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+8. Stop Order - SELL: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+9. Stop Limit Order - SELL: 7 tests
+   - 4 expiry types, edit, delete, bulk close
+   
+10. History Test: 1 test
+    - Information and order history validation
+
+================================================================================
+EXECUTION NOTES
+================================================================================
+
+HEADLESS MODE:
+- Default: Tests run in background (headless=True)
+- UI Mode: Use "UION" flag to display browser window
+
+COMMAND LINE USAGE:
+- Run all tests: python automated_tests.py
+- Run specific test: python automated_tests.py TEST:AUTH-001
+- Run with UI: python automated_tests.py UION
+- Run specific with UI: python automated_tests.py TEST:AUTH-001 UION
+
+FILTER OPTIONS:
+- filter_by_id: Run specific test by ID
+- filter_by_category: Run all tests in category
+- headless: Boolean for browser display mode
+
+================================================================================
+END OF DOCUMENT
+================================================================================
