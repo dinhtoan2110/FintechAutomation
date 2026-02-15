@@ -15,19 +15,23 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 import time
 from urllib.parse import urlparse
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
 # ============================================
-# TEST DATA
+# TEST DATA (Loaded from .env file for security)
 # ============================================
 
-VALID_USERNAME = "1001186"
-VALID_PASSWORD = "pJoD#m8HB6#o"
+# Load credentials from environment variables
+VALID_USERNAME = os.getenv("TEST_USERNAME", "1001186")  # Fallback to default if .env not found
+VALID_PASSWORD = os.getenv("TEST_PASSWORD", "pJoD#m8HB6#o")  # Fallback to default if .env not found
 INVALID_USERNAME = "invalid_user"
 INVALID_PASSWORD = "wrong_password"
-TEST_SYMBOL = "XAUUSD"
+TEST_SYMBOL = os.getenv("TEST_SYMBOL", "XAUUSD")
 TEST_VOLUME = "100"
-TEST_VOLUME_STANDARD = 1.0  # Standard volume for test orders
+TEST_VOLUME_STANDARD = float(os.getenv("TEST_VOLUME", "1.0"))  # Standard volume for test orders
 
 
 # ============================================

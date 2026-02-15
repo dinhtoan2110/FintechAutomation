@@ -1,0 +1,12 @@
+# AQX Trader - Test Automation Requirements
+
+# Selenium for browser automation
+selenium==4.15.2
+webdriver-manager==4.0.1
+
+# Environment variables management
+python-dotenv==1.0.0
+
+# Testing framework (optional)
+pytest==7.4.3
+pytest-html==4.1.1
